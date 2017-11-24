@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<script src="build.js">
+
+</script>
+    <link rel="stylesheet" href="Main.css">
+    <style>
+h3{
+    margin: 20px 0;
+    color: black;
+}
+    </style>
+
+</head>
+<body >
+<div id="body">
+
+
+<div class="main">
+
+        <h1>Game "Find the Pair"</h1>
+    <h3>Click for "Start" if wanna play</h3>
+<p>Choose size and color field</p>
+<div id="choose">
+    <input type="radio" name="size" value="6">6x6
+    <input type="radio" name="size" value="8">8x8
+    <input type="radio" name="size" value="10">10x10
+    <input type="radio" name="size" value="12">12x12
+   <br><br>
+
+    <input type="radio" name="color" value="yellow">Yellow
+    <input type="radio" name="color" value="pink">Pink
+    <input type="radio" name="color" value="darkBlue">DarkBlue
+
+</div>
+    <div class="buttons">
+        <button id="click">Start</button>  <button id="reverse" onclick="reverse()">Stop play</button>
+        <button id="continue" onclick="timer()">Continue</button>
+        <button id="pause">Pause</button>
+    </div>
+<div id="timer">
+   <p><span id="second">00</span>:<span id="ten">00</span></p>
+</div>
+
+    <div id="memory-body" class="memory-body">
+
+    </div>
+    <div id="StoreMain">
+        <span id="score">00</span>
+    </div>
+    <script>
+
+    </script>
+</div>
+<script src="Main.js" type="application/javascript">
+
+</script>
+
+
+</div>
+<div id="field">
+    <div id="comments">
+        <textarea id="comment">
+
+        </textarea>
+    </div>
+    <div id="nick">
+<input type="text" placeholder="Enter nick" id="nick1">
+    </div>
+    <div>
+        <button id="buttonSend">Send data</button>
+    </div>
+    <div id="table">
+
+        <table border="1" id="border">
+
+            <tr>
+                <th>-</th>
+                <th>Result</th>
+                <th>Information</th>
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
