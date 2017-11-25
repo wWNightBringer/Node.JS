@@ -18,6 +18,8 @@ var b=0;
 var size=0;// variable to size field
 var d=0;
 var colorSelect=0; //select color
+var con=true;
+
 function choose() {//This function is needed to select the size of the field and the background color.
 
         var x=document.getElementsByName("size");
@@ -50,7 +52,7 @@ function choose() {//This function is needed to select the size of the field and
         }
     }
     }
-
+var con;
 Array.prototype.shuffel=function () {// here cards are shuffled.
 
     var i=this.length,j,temp;
@@ -63,8 +65,9 @@ Array.prototype.shuffel=function () {// here cards are shuffled.
 };
 var Interval;
 function timer() {// function to activate the timer
-text.style.visibility='visible';
+con=true;
      Interval=setInterval(function () {
+         var continued=document.getElementById("continue");
         tens++;
         if(tens < 9){
             appendTens.innerHTML = "0" + tens;
@@ -82,17 +85,20 @@ text.style.visibility='visible';
             appendSecond.innerHTML = seconds;
         }
         pause.onclick=function () {
+            con=false;
             setTimeout(function () {
-                text.style.visibility='hidden';
+                con=false;
                 clearInterval(Interval);
 
             },1);
+            continued.style.animation="blinking .5s infinity";
         }
     },10);
 
 }
 
     start.onclick = function create() {//start the game
+
 array=[];
         choose();
         if(d && colorSelect) {
@@ -109,117 +115,127 @@ array=[];
         array.shuffel();
         text.innerHTML = '';
         timer();
+        var a=0;
         var func = document.getElementById("func");
+            text.style.width='auto';
+        for (var i = 0; i < d; i++) {
+            var tr=document.createElement("tr");
 
-        for (var i = 0; i < array.length; i++) {
-            var div = document.createElement("div");// creation of cards
-            div.id = i;
-            div.dataset.item = array[i];
-            div.dataset.view = "div";
-            text.appendChild(div);
+            for(var j=0;j<d;j++){
+                var td=document.createElement("td");
 
-            div.onclick = function () {// cards flip
+                var div = document.createElement("div");// creation of cards
+                div.id = a;
+                div.dataset.item = array[a];
+                div.dataset.view = "div";
+                td.appendChild(div);
+                tr.appendChild(td);
+                a++;
+                div.onclick = function () {// cards flip
 
-                var result = this.dataset.item;
-                if (this.innerHTML === '' && value.length < 2) {
-                    amountTrying++;
-
-
-
-                    if (value.length == 0) {//adding an element to the array and its id
-                        value.push(result);
-                        tileId.push(this.id);
-                        let tile1=document.getElementById(tileId[0]);
-                        let flip=setInterval(function () {
-                            tile1.style.transform="scaleX(0.001)";
-                        },3);
-                        setTimeout(function () {
-                            clearInterval(flip);
-                            tile1.style.backgroundImage = "url('Photo/sky4.jpg')";
-                            tile1.style.backgroundSize="100%";
-                            tile1.style.transform="scaleX(1)";
-                            tile1.style.transition="transform .5s";
-                            tile1.innerHTML = result;
-                        },700);
-                    } else if (value.length == 1) {//adding an element to the array and its id
-                        value.push(result);
-                        tileId.push(this.id);
-                        let tile2=document.getElementById(tileId[1]);
-                        let flip=setInterval(function () {
-                            tile2.style.transform="scaleX(0.001)";
-
-                        },10);
-                        setTimeout(function () {
-                            clearInterval(flip);
-
-                            tile2.style.backgroundImage = "url('Photo/sky4.jpg')";
-                            tile2.style.backgroundSize="100%";
-                            tile2.style.transform="scaleX(1)";
-                            tile2.style.transition="transform .5s";
-                            tile2.innerHTML = result;
-                        },700);
-                        if (value[0] == value[1]) {//comparison of the first and second elements
+                    var result = this.dataset.item;
+                    if (this.innerHTML === '' && value.length < 2) {
+                        amountTrying++;
 
 
-                            var tile3 = document.getElementById(tileId[0]);
-                            var tile4 = document.getElementById(tileId[1]);
-                setTimeout(function () {
-
-
-                            tile3.style.left="200%";
-                            tile4.style.left="200%";
-
-                    },1000);
-
-
-                            tileFlipped += 2;//check both arrays
-                            if (seconds < 200 && amountTrying < 50) {// set of glasses
-                                account = account + 5;
-                            } else {
-                                account = account + 2;
-                            }
-
-                            store += account;
-                            if (store < 9) {
-                                score.innerHTML = "0" + store;
-                            }
-                            if (store > 9) {
-                                score.innerHTML = store;
-                            }
-
-                            value = [];
-                            tileId = [];
-
-                            if (tileFlipped == array.length) {
-                                document.getElementById("memory-body").innerHTML = '';
-                                win();//win result
-
-                            }
-                        } else {
-                            function FlipBack() {//function for return if the cards are different
-                                account = 0;
-                                let tile1 = document.getElementById(tileId[0]);
-                                let tile2 = document.getElementById(tileId[1]);
+                        if(con==true){
+                            if (value.length == 0) {//adding an element to the array and its id
+                                value.push(result);
+                                tileId.push(this.id);
+                                let tile1=document.getElementById(tileId[0]);
+                                let flip=setInterval(function () {
+                                    tile1.style.transform="scaleX(0.001)";
+                                },3);
                                 setTimeout(function () {
-                                    tile1.style.backgroundImage = 'url("pr-kv50-3.jpg") ';
-                                    tile1.style.BackgroundSize = '100%';
-                                    tile1.innerHTML = '';
-                                    tile2.style.backgroundImage = 'url("pr-kv50-3.jpg")';
-                                    tile2.style.BackgroundSize = '100%';
-                                    tile2.innerHTML = '';
+                                    clearInterval(flip);
+                                    tile1.style.backgroundImage = "url('Photo/sky4.jpg')";
+                                    tile1.style.backgroundSize='100%';
+                                    tile1.style.transform="scaleX(1)";
+                                    tile1.style.transition="transform .5s";
+                                    tile1.innerHTML = result;
                                 },700);
+                            } else if (value.length == 1) {//adding an element to the array and its id
+                                value.push(result);
+                                tileId.push(this.id);
+                                let tile2=document.getElementById(tileId[1]);
+                                let flip=setInterval(function () {
+                                    tile2.style.transform="scaleX(0.001)";
+
+                                },10);
+                                setTimeout(function () {
+                                    clearInterval(flip);
+                                    tile2.style.backgroundSize='100%';
+                                    tile2.style.backgroundImage = "url('Photo/sky4.jpg')";
+                                    tile2.style.transform="scaleX(1)";
+                                    tile2.style.transition="transform .5s";
+                                    tile2.innerHTML = result;
+                                },700);
+                                if (value[0] == value[1]) {//comparison of the first and second elements
 
 
-                                //clear arrays
-                                value = [];
-                                tileId = [];
+                                    var tile3 = document.getElementById(tileId[0]);
+                                    var tile4 = document.getElementById(tileId[1]);
+                                    setTimeout(function () {
+
+
+                                        tile3.style.display='none';
+                                        tile4.style.display='none';
+
+                                    },1000);
+
+
+                                    tileFlipped += 2;//check both arrays
+                                    if (seconds < 200 && amountTrying < 50) {// set of glasses
+                                        account = account + 5;
+                                    } else {
+                                        account = account + 2;
+                                    }
+
+                                    store += account;
+                                    if (store < 9) {
+                                        score.innerHTML = "0" + store;
+                                    }
+                                    if (store > 9) {
+                                        score.innerHTML = store;
+                                    }
+
+                                    value = [];
+                                    tileId = [];
+
+                                    if (tileFlipped == array.length) {
+                                        document.getElementById("memory-body").innerHTML = '';
+                                        win();//win result
+
+                                    }
+                                } else {
+                                    function FlipBack() {//function for return if the cards are different
+                                        account = 0;
+                                        let tile1 = document.getElementById(tileId[0]);
+                                        let tile2 = document.getElementById(tileId[1]);
+                                        setTimeout(function () {
+                                            tile1.style.backgroundImage = 'url("pr-kv50-3.jpg") ';
+                                            tile1.style.BackgroundSize = '100%';
+                                            tile1.innerHTML = '';
+                                            tile2.style.backgroundImage = 'url("pr-kv50-3.jpg")';
+                                            tile2.style.BackgroundSize = '100%';
+                                            tile2.innerHTML = '';
+                                        },700);
+
+
+                                        //clear arrays
+                                        value = [];
+                                        tileId = [];
+                                    }
+
+                                    setTimeout(FlipBack, 700);
+                                }
                             }
-
-                            setTimeout(FlipBack, 700);
                         }
+
                     }
                 }
             }
+            text.appendChild(tr);
         }
 
 
