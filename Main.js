@@ -28,8 +28,8 @@ function choose() {//This function is needed to select the size of the field and
                 size=Math.pow(x[i].value,2);
             }
         }
-        for(var j=0;j<size;j++){
-            if(j<=size/2-1){
+        for(var j=0;j<4;j++){
+            if(j<=4/2-1){
 
                     b=j;
                     array[j]=j;
@@ -119,10 +119,10 @@ array=[];
         var a=0;
         var func = document.getElementById("func");
             text.style.width='auto';
-        for (var i = 0; i < d; i++) {
+        for (var i = 0; i < 2; i++) {
             var tr=document.createElement("tr");
 
-            for(var j=0;j<d;j++){
+            for(var j=0;j<2;j++){
                 var td=document.createElement("td");
 
                 var div = document.createElement("div");// creation of cards
@@ -133,8 +133,9 @@ array=[];
                 tr.appendChild(td);
                 a++;
                 div.onclick = function () {// cards flip
-
+let numCard;
                     var result = this.dataset.item;
+                    numCard=result;
                     if (this.innerHTML === '' && value.length < 2) {
                         amountTrying++;
 
@@ -149,8 +150,9 @@ array=[];
                                 },3);
                                 setTimeout(function () {
                                     clearInterval(flip);
-                                    tile1.style.backgroundImage = "url('Photo/sky4.jpg')";
+                                    tile1.style.backgroundImage = "url('PhotoInDiv/"+numCard+".jpg')";
                                     tile1.style.backgroundSize='100%';
+                                    tile1.style.color='red';
                                     tile1.style.transform="scaleX(1)";
                                     tile1.style.transition="transform .5s";
                                     tile1.innerHTML = result;
@@ -166,7 +168,8 @@ array=[];
                                 setTimeout(function () {
                                     clearInterval(flip);
                                     tile2.style.backgroundSize='100%';
-                                    tile2.style.backgroundImage = "url('Photo/sky4.jpg')";
+                                    tile2.style.color='red';
+                                    tile2.style.backgroundImage = "url('PhotoInDiv/"+numCard+".jpg')";
                                     tile2.style.transform="scaleX(1)";
                                     tile2.style.transition="transform .5s";
                                     tile2.innerHTML = result;
@@ -273,126 +276,98 @@ var body=document.getElementById("body");
         mainNick.style.display='inline';
         buttonSend.style.display='inline';
 buttonSend.onclick=function () {//button send data to localStorage
+    var keys;
+    var serial=JSON.stringify(nick);
+    keys=store+" "+seconds+" "+tens+" "+nick.value;
     if(nick.value){
-        result=["nick: "+ nick.value+" Date: "+date.getDate()+"."+date.getMonth()+"."+date.getFullYear()];
-        localStorage.setItem(store,result);
+        result=date.getHours()+" "+date.getMinutes()+" "+date.getDate()+" "+date.getMonth()+" "+date.getFullYear()+" "+d;
+        localStorage.setItem(keys,result);
         mainNick.style.display='none';
         buttonSend.style.display='none';
-        if(size==36){//field 6х6
+        var x=0;
 border.style.display='inline';
-Object.keys(localStorage).sort(function (a,b) {//function for sorting data from localStorage
+Object.keys(localStorage).sort(function (a,b) {
     return a-b;
 }).forEach(function (t) {
-if(t>0 && t<=144){
-    caption.innerHTML="Table 6x6";
-    var tr=document.createElement("tr");
-    var td=document.createElement("td");
-    var td1=document.createElement("td");
-    var td2=document.createElement("td");
-    var td3=document.createElement("td");
-    td.innerHTML=e;
-    td1.innerHTML=t;
-    td2.innerHTML=localStorage[t];
-
-    tr.appendChild(td);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-
-    table.appendChild(tr);
-    e++;
-}else
-    return;
-
-
-});
-
-
-        }
-        if(size==64){//field 8х8
-            border.style.display='inline';
-            Object.keys(localStorage).sort(function (a,b) {
-                return a-b;
-            }).forEach(function (t) {
-if(t>144 && t<=256){
+    var obj=t.split(' ');
+    var valueLocal=localStorage[t].split(' ');
+    var tr = document.createElement("tr");
+    var tdNum = document.createElement("td");
+    var tdNick = document.createElement("td");
+    var tdResult = document.createElement("td");
+    var tdTime = document.createElement("td");
+    var tdDate = document.createElement("td");
+    var tdField = document.createElement("td");
+    if(parseInt(valueLocal[5])==6) {//field 6х6
+        caption.innerHTML = "Table 6x6";
+        tdNum.innerHTML = e;
+        tdNick.innerHTML = obj[3];
+        tdResult.innerHTML = obj[0];
+        tdTime.innerHTML = obj[1] + ':' + obj[2];
+        tdDate.innerHTML = valueLocal[0] + ":" + valueLocal[1] + " " + valueLocal[2] + "." + valueLocal[3] + "." + valueLocal[4];
+        tdField.innerHTML = valueLocal[5] + "x" + valueLocal[5];
+        tr.appendChild(tdNum);
+        tr.appendChild(tdNick);
+        tr.appendChild(tdResult);
+        tr.appendChild(tdTime);
+        tr.appendChild(tdDate);
+        tr.appendChild(tdField);
+        table.appendChild(tr);
+        e++;
+    }
+if(parseInt(valueLocal[5])==8){  //field 8х8
     caption.innerHTML="Table 8x8";
-    var tr=document.createElement("tr");
-    var td=document.createElement("td");
-    var td1=document.createElement("td");
-    var td2=document.createElement("td");
-    var td3=document.createElement("td");
-    td.innerHTML=e;
-    td1.innerHTML=t;
-    td2.innerHTML=localStorage[t];
-
-    tr.appendChild(td);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-
+    tdNum.innerHTML=e;
+    tdNick.innerHTML = obj[3];
+    tdResult.innerHTML = obj[0];
+    tdTime.innerHTML = obj[1] + ':' + obj[2];
+    tdDate.innerHTML=valueLocal[0]+":"+valueLocal[1]+" "+valueLocal[2]+"."+valueLocal[3]+"."+valueLocal[4];
+    tdField.innerHTML=valueLocal[5]+"x"+valueLocal[5];
+    tr.appendChild(tdNum);
+    tr.appendChild(tdNick);
+    tr.appendChild(tdResult);
+    tr.appendChild(tdTime);
+    tr.appendChild(tdDate);
+    tr.appendChild(tdField);
     table.appendChild(tr);
     e++;
-}else
-    return;
+}
+    if(parseInt(valueLocal[5])==10){ //field 10х10
+        caption.innerHTML="Table 10x10";
 
-
-            });
-        }
-        if(size==100){//field 10х10
-            border.style.display='inline';
-            Object.keys(localStorage).sort(function (a,b) {
-                return a-b;
-            }).forEach(function (t) {
-                if(t>144 && t<=256){
-                    caption.innerHTML="Table 10x10";
-                    var tr=document.createElement("tr");
-                    var td=document.createElement("td");
-                    var td1=document.createElement("td");
-                    var td2=document.createElement("td");
-                    var td3=document.createElement("td");
-                    td.innerHTML=e;
-                    td1.innerHTML=t;
-                    td2.innerHTML=localStorage[t];
-
-                    tr.appendChild(td);
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-
-                    table.appendChild(tr);
-                    e++;
-                }else
-                    return;
-
-
-            });
-        }
-        if(size==144){//field 12х12
-            border.style.display='inline';
-            Object.keys(localStorage).sort(function (a,b) {
-                return a-b;
-            }).forEach(function (t) {
-                if(t>144 && t<=256){
-                    caption.innerHTML="Table 12x12";
-                    var tr=document.createElement("tr");
-                    var td=document.createElement("td");
-                    var td1=document.createElement("td");
-                    var td2=document.createElement("td");
-                    var td3=document.createElement("td");
-                    td.innerHTML=e;
-                    td1.innerHTML=t;
-                    td2.innerHTML=localStorage[t];
-
-                    tr.appendChild(td);
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-
-                    table.appendChild(tr);
-                    e++;
-                }else
-                    return;
-
-
-            });
-        }
-
+        tdNum.innerHTML=e;
+        tdNick.innerHTML = obj[3];
+        tdResult.innerHTML = obj[0];
+        tdTime.innerHTML = obj[1] + ':' + obj[2];
+        tdDate.innerHTML=valueLocal[0]+":"+valueLocal[1]+" "+valueLocal[2]+"."+valueLocal[3]+"."+valueLocal[4];
+        tdField.innerHTML=valueLocal[5]+"x"+valueLocal[5];
+        tr.appendChild(tdNum);
+        tr.appendChild(tdNick);
+        tr.appendChild(tdResult);
+        tr.appendChild(tdTime);
+        tr.appendChild(tdDate);
+        tr.appendChild(tdField);
+        table.appendChild(tr);
+        e++;
+    }
+    if(parseInt(valueLocal[5])==12){ //field 12х12
+        caption.innerHTML="Table 12x12";
+        tdNum.innerHTML=e;
+        tdNick.innerHTML = obj[3];
+        tdResult.innerHTML = obj[0];
+        tdTime.innerHTML = obj[1] + ':' + obj[2];
+        tdDate.innerHTML=valueLocal[0]+":"+valueLocal[1]+" "+valueLocal[2]+"."+valueLocal[3]+"."+valueLocal[4];
+        tdField.innerHTML=valueLocal[5]+"x"+valueLocal[5];
+        tr.appendChild(tdNum);
+        tr.appendChild(tdNick);
+        tr.appendChild(tdResult);
+        tr.appendChild(tdTime);
+        tr.appendChild(tdDate);
+        tr.appendChild(tdField);
+        table.appendChild(tr);
+        e++;
+    }
+});
 
     }else{
         alert("Enter nick");

@@ -157,8 +157,9 @@ display: none;
     margin: 30px;
 }
 #border{
-    left: 34%;
+    left: 30%;
     position: absolute;
+    text-align: center;
 }
 #border>tr,th{
     padding: 5px 10px;
