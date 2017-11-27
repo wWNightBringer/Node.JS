@@ -156,7 +156,7 @@ let numCard;
                                     tile1.style.transform="scaleX(1)";
                                     tile1.style.transition="transform .5s";
                                     tile1.innerHTML = result;
-                                },700);
+                                },300);
                             } else if (value.length == 1) {//adding an element to the array and its id
                                 value.push(result);
                                 tileId.push(this.id);
@@ -173,7 +173,7 @@ let numCard;
                                     tile2.style.transform="scaleX(1)";
                                     tile2.style.transition="transform .5s";
                                     tile2.innerHTML = result;
-                                },700);
+                                },300);
                                 if (value[0] == value[1]) {//comparison of the first and second elements
 
 
@@ -278,107 +278,107 @@ var body=document.getElementById("body");
 buttonSend.onclick=function () {//button send data to localStorage
     var keys;
     var serial=JSON.stringify(nick);
-    keys=store+" "+seconds+" "+tens+" "+nick.value;
-    if(nick.value){
-        result=date.getHours()+" "+date.getMinutes()+" "+date.getDate()+" "+date.getMonth()+" "+date.getFullYear()+" "+d;
+    keys=date.getHours()+" "+date.getMinutes()+" "+date.getDate()+" "+date.getMonth()+" "+date.getFullYear()+" "+nick.value;
+    if(nick.value && nick.value.indexOf(" ")<=0){
+        result=store+" "+seconds+" "+d;
         localStorage.setItem(keys,result);
         mainNick.style.display='none';
         buttonSend.style.display='none';
         var x=0;
 border.style.display='inline';
-Object.keys(localStorage).sort(function (a,b) {
-    return a-b;
-}).forEach(function (t) {
-    var obj=t.split(' ');
-    var valueLocal=localStorage[t].split(' ');
-    var tr = document.createElement("tr");
-    var tdNum = document.createElement("td");
-    var tdNick = document.createElement("td");
-    var tdResult = document.createElement("td");
-    var tdTime = document.createElement("td");
-    var tdDate = document.createElement("td");
-    var tdField = document.createElement("td");
-    if(parseInt(valueLocal[5])==6) {//field 6х6
-        caption.innerHTML = "Table 6x6";
-        tdNum.innerHTML = e;
-        tdNick.innerHTML = obj[3];
-        tdResult.innerHTML = obj[0];
-        tdTime.innerHTML = obj[1] + ':' + obj[2];
-        tdDate.innerHTML = valueLocal[0] + ":" + valueLocal[1] + " " + valueLocal[2] + "." + valueLocal[3] + "." + valueLocal[4];
-        tdField.innerHTML = valueLocal[5] + "x" + valueLocal[5];
-        tr.appendChild(tdNum);
-        tr.appendChild(tdNick);
-        tr.appendChild(tdResult);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdDate);
-        tr.appendChild(tdField);
-        table.appendChild(tr);
-        e++;
-    }
-if(parseInt(valueLocal[5])==8){  //field 8х8
-    caption.innerHTML="Table 8x8";
-    tdNum.innerHTML=e;
-    tdNick.innerHTML = obj[3];
-    tdResult.innerHTML = obj[0];
-    tdTime.innerHTML = obj[1] + ':' + obj[2];
-    tdDate.innerHTML=valueLocal[0]+":"+valueLocal[1]+" "+valueLocal[2]+"."+valueLocal[3]+"."+valueLocal[4];
-    tdField.innerHTML=valueLocal[5]+"x"+valueLocal[5];
-    tr.appendChild(tdNum);
-    tr.appendChild(tdNick);
-    tr.appendChild(tdResult);
-    tr.appendChild(tdTime);
-    tr.appendChild(tdDate);
-    tr.appendChild(tdField);
-    table.appendChild(tr);
-    e++;
-}
-    if(parseInt(valueLocal[5])==10){ //field 10х10
-        caption.innerHTML="Table 10x10";
 
-        tdNum.innerHTML=e;
-        tdNick.innerHTML = obj[3];
-        tdResult.innerHTML = obj[0];
-        tdTime.innerHTML = obj[1] + ':' + obj[2];
-        tdDate.innerHTML=valueLocal[0]+":"+valueLocal[1]+" "+valueLocal[2]+"."+valueLocal[3]+"."+valueLocal[4];
-        tdField.innerHTML=valueLocal[5]+"x"+valueLocal[5];
-        tr.appendChild(tdNum);
-        tr.appendChild(tdNick);
-        tr.appendChild(tdResult);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdDate);
-        tr.appendChild(tdField);
-        table.appendChild(tr);
-        e++;
-    }
-    if(parseInt(valueLocal[5])==12){ //field 12х12
-        caption.innerHTML="Table 12x12";
-        tdNum.innerHTML=e;
-        tdNick.innerHTML = obj[3];
-        tdResult.innerHTML = obj[0];
-        tdTime.innerHTML = obj[1] + ':' + obj[2];
-        tdDate.innerHTML=valueLocal[0]+":"+valueLocal[1]+" "+valueLocal[2]+"."+valueLocal[3]+"."+valueLocal[4];
-        tdField.innerHTML=valueLocal[5]+"x"+valueLocal[5];
-        tr.appendChild(tdNum);
-        tr.appendChild(tdNick);
-        tr.appendChild(tdResult);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdDate);
-        tr.appendChild(tdField);
-        table.appendChild(tr);
-        e++;
-    }
-});
+        Object.keys(localStorage).forEach(function (t) {
+            var obj=t.split(' ');
+            var valueLocal=localStorage[t].split(' ');
+            var tr = document.createElement("tr");
+            var tdNum = document.createElement("td");
+            var tdNick = document.createElement("td");
+            var tdResult = document.createElement("td");
+            var tdTime = document.createElement("td");
+            var tdDate = document.createElement("td");
+            var tdField = document.createElement("td");
+            if(parseInt(valueLocal[2])=="6" && d=="6") {//field 6х6
 
+                caption.innerHTML = "Table 6x6";
+                tdNum.innerHTML = e;
+                tdNick.innerHTML = obj[5];
+                tdResult.innerHTML = valueLocal[0];
+                tdTime.innerHTML = valueLocal[1];
+                tdDate.innerHTML = obj[0] + ":" + obj[1] + " " + obj[2] + "." + obj[3] + "." + obj[4];
+                tdField.innerHTML = valueLocal[2] + "x" + valueLocal[2];
+
+                tr.appendChild(tdNum);
+                tr.appendChild(tdNick);
+                tr.appendChild(tdResult);
+                tr.appendChild(tdTime);
+                tr.appendChild(tdDate);
+                tr.appendChild(tdField);
+                table.appendChild(tr);
+                e++;
+            }
+            if(parseInt(valueLocal[2])=="8" && d=="8"){  //field 8х8
+                caption.innerHTML="Table 8x8";
+                tdNum.innerHTML=e;
+                tdNick.innerHTML = obj[5];
+                tdResult.innerHTML = valueLocal[0];
+                tdTime.innerHTML = valueLocal[1];
+                tdDate.innerHTML = obj[0] + ":" + obj[1] + " " + obj[2] + "." + obj[3] + "." + obj[4];
+                tdField.innerHTML = valueLocal[2] + "x" + valueLocal[2];
+                tr.appendChild(tdNum);
+                tr.appendChild(tdNick);
+                tr.appendChild(tdResult);
+                tr.appendChild(tdTime);
+                tr.appendChild(tdDate);
+                tr.appendChild(tdField);
+                table.appendChild(tr);
+                e++;
+            }
+            if(parseInt(valueLocal[2])=="10" && d=="10"){ //field 10х10
+                caption.innerHTML="Table 10x10";
+
+                tdNum.innerHTML=e;
+                tdNick.innerHTML = obj[5];
+                tdResult.innerHTML = valueLocal[0];
+                tdTime.innerHTML = valueLocal[1];
+                tdDate.innerHTML = obj[0] + ":" + obj[1] + " " + obj[2] + "." + obj[3] + "." + obj[4];
+                tdField.innerHTML = valueLocal[2] + "x" + valueLocal[2];
+                tr.appendChild(tdNum);
+                tr.appendChild(tdNick);
+                tr.appendChild(tdResult);
+                tr.appendChild(tdTime);
+                tr.appendChild(tdDate);
+                tr.appendChild(tdField);
+                table.appendChild(tr);
+                e++;
+            }
+            if(parseInt(valueLocal[2])=="12" && d=="12"){ //field 12х12
+                caption.innerHTML="Table 12x12";
+                tdNum.innerHTML=e;
+                tdNick.innerHTML = obj[5];
+                tdResult.innerHTML = valueLocal[0];
+                tdTime.innerHTML = valueLocal[1];
+                tdDate.innerHTML = obj[0] + ":" + obj[1] + " " + obj[2] + "." + obj[3] + "." + obj[4];
+                tdField.innerHTML = valueLocal[2] + "x" + valueLocal[2];
+                tr.appendChild(tdNum);
+                tr.appendChild(tdNick);
+                tr.appendChild(tdResult);
+                tr.appendChild(tdTime);
+                tr.appendChild(tdDate);
+                tr.appendChild(tdField);
+                table.appendChild(tr);
+                e++;
+            }
+        });
     }else{
-        alert("Enter nick");
+        alert("Enter nick or you have space");
     }
 
 
 };
 
-setTimeout(function () {
+/*setTimeout(function () {
     border.style.display='none';
-},5000);
+},5000);*/
 
         appendTens.innerHTML="0"+0;
         appendSecond.innerHTML="0"+0;
