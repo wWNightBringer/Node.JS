@@ -28,8 +28,8 @@ function choose() {//This function is needed to select the size of the field and
                 size=Math.pow(x[i].value,2);
             }
         }
-        for(var j=0;j<4;j++){
-            if(j<=4/2-1){
+        for(var j=0;j<size;j++){
+            if(j<=size/2-1){
 
                     b=j;
                     array[j]=j;
@@ -119,10 +119,10 @@ array=[];
         var a=0;
         var func = document.getElementById("func");
             text.style.width='auto';
-        for (var i = 0; i < 2; i++) {
+        for (var i = 0; i < d; i++) {
             var tr=document.createElement("tr");
 
-            for(var j=0;j<2;j++){
+            for(var j=0;j<d;j++){
                 var td=document.createElement("td");
 
                 var div = document.createElement("div");// creation of cards
@@ -376,9 +376,9 @@ border.style.display='inline';
 
 };
 
-/*setTimeout(function () {
+setTimeout(function () {
     border.style.display='none';
-},5000);*/
+},10000);
 
         appendTens.innerHTML="0"+0;
         appendSecond.innerHTML="0"+0;
